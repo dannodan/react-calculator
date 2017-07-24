@@ -7,6 +7,7 @@ class Keyboard extends Component {
       super()
 
       this.state = {
+          showResult: true,
           result: "0",
           resultArray: []
       }
@@ -14,7 +15,11 @@ class Keyboard extends Component {
 
   handleNumberPress(i) {
       const result = this.state.result
-      if (result === "0" && 48 <= i.charCodeAt(0) && i.charCodeAt(0) <= 57 && result.length === 1) {
+      const showResult = this.state.showResult
+      if (showResult) {
+        this.setState({result: i})
+        this.setState({showResult: false})
+      } else if (result === "0" && 48 <= i.charCodeAt(0) && i.charCodeAt(0) <= 57 && result.length === 1) {
         this.setState({result: i})
       } else {
         this.setState({result: result+i})
@@ -50,7 +55,9 @@ class Keyboard extends Component {
           if (!Number.isInteger(result)) {
             result = result.toFixed(2)
           }
+          console.log(result.length)
           this.setState({result: result.toString()})
+          this.setState({showResult: true})
           if (resultArray.length > 4){
             resultArray.pop()
             this.setState({resultArray: resultArray})
@@ -58,7 +65,11 @@ class Keyboard extends Component {
           resultArray.unshift(result)
           this.setState({resultArray: resultArray})
       } else if (o.charCodeAt(0) === 9003) {
-          this.setState({result: result.slice(0, result.length-1)})
+          if (result.length > 1) {
+            this.setState({result: result.slice(0, result.length-1)})
+          } else {
+            this.setState({result: "0"})
+          }
       } else if (o.charCodeAt(0) === 67 && o.charCodeAt(1) === 69) {
           this.setState({result: "0"})
           this.setState({resultArray: []})
@@ -93,7 +104,7 @@ class Keyboard extends Component {
 
   renderResultArray() {
       const resultArray = this.state.resultArray
-      return resultArray.map((result, index) => <div key={index}>{result}<br/></div>)
+      return resultArray.map((result, index) => <div className="result-history-div" key={index}>{result}<br/></div>)
   }
 
   render() {
@@ -101,39 +112,41 @@ class Keyboard extends Component {
     return (
       <div>
         <div className="keyboard">
-        <div className="input">{this.state.result}</div>
-        <div className="board-row">
-          {this.renderOperator("CE")}
-          {this.renderOperator("C")}
-          <div className="blank"/>
-          {this.renderOperator("⌫")}
-        </div>
-        <div className="board-row">
-          {this.renderNumber("7")}
-          {this.renderNumber("8")}
-          {this.renderNumber("9")}
-          {this.renderOperator("/")}
-        </div>
-        <div className="board-row">
-          {this.renderNumber("4")}
-          {this.renderNumber("5")}
-          {this.renderNumber("6")}
-          {this.renderOperator("*")}
-        </div>
-        <div className="board-row">
-          {this.renderNumber("1")}
-          {this.renderNumber("2")}
-          {this.renderNumber("3")}
-          {this.renderOperator("-")}
-        </div>
-        <div className="board-row">
-          {this.renderOperator(".")}
-          {this.renderNumber("0")}
-          {this.renderOperator("=")}
-          {this.renderOperator("+")}
-        </div>
+          {/*<input type="text" className="input" value={this.state.result} readonly/>*/}
+          <div className="input">{this.state.result}</div>
+          <div className="board-row">
+            {this.renderOperator("CE")}
+            {this.renderOperator("C")}
+            <div className="blank"/>
+            {this.renderOperator("⌫")}
+          </div>
+          <div className="board-row">
+            {this.renderNumber("7")}
+            {this.renderNumber("8")}
+            {this.renderNumber("9")}
+            {this.renderOperator("/")}
+          </div>
+          <div className="board-row">
+            {this.renderNumber("4")}
+            {this.renderNumber("5")}
+            {this.renderNumber("6")}
+            {this.renderOperator("*")}
+          </div>
+          <div className="board-row">
+            {this.renderNumber("1")}
+            {this.renderNumber("2")}
+            {this.renderNumber("3")}
+            {this.renderOperator("-")}
+          </div>
+          <div className="board-row">
+            {this.renderOperator(".")}
+            {this.renderNumber("0")}
+            {this.renderOperator("=")}
+            {this.renderOperator("+")}
+          </div>
         </div>
         <div className="result-history">
+          <div className="result-history-title">Result History</div>
           {this.renderResultArray()}
         </div>
       </div>

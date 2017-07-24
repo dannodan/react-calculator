@@ -4,13 +4,8 @@ import Keyboard from './keyboard.component'
 class Calculator extends Component {
   render() {
     return (
-      <div className="game">
-        <div className="game-board">
+      <div className="container">
           <Keyboard/>
-        </div>
-        <div className="game-info">
-          <div></div>
-        </div>
       </div>
     );
   }

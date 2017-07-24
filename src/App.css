@@ -43,21 +43,41 @@
   font-family: 'Roboto', sans-serif;
   font-size: 48px;
   text-align: right;
-  overflow: hidden;
+  overflow-wrap: break-word;
   width: 250px;
   margin: auto;
 }
 
 .result-history {
-  float: right;
-  height: 400px;
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 48px;
+  text-align: right;
+  position: absolute;
+  height: 435px;
+  width: 300px;
+}
+
+.result-history-title {
+  text-align: right;
+  font-size: 20px;
+  height: 35px;
 }
 
 .keyboard {
-  float: left;
+  display: inline-block;
+  margin: auto 30px;
+}
+
+.result-history-div {
+  height: 80px;
 }
 
 .blank {
   width: 75px;
   display: inline-block;
+}
+
+.container {
+  margin-top: 30px;
 }
