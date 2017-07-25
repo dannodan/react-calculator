@@ -1,6 +1,6 @@
-Calculadora basica realizada con ReactJS
+# Calculadora básica realizada con ReactJS
 
-#Instalacion
+## Instalación
 
 Para instalar es necesario tener NPM instalado
 
